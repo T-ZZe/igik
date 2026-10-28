@@ -1,0 +1,21 @@
+name: Build SkillTree
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+      - name: Build
+        run: mvn -B -f SkillTree-projet/SkillTree/pom.xml package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SkillTree
+          path: SkillTree-projet/SkillTree/target/SkillTree-*.jar
